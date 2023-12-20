@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 import pandas as pd
 import math
 from dotenv import load_dotenv
