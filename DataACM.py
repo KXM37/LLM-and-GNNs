@@ -54,13 +54,14 @@ batch_size = 150
 total_rows = len(df)
 num_batches = math.ceil(total_rows / batch_size)
 
-# Process only two batches at a time
+# Process all batches
 batches_processed = df['processed'].sum() // batch_size
-for batch in range(batches_processed, min(batches_processed + 4, num_batches)):
+for batch in range(batches_processed, num_batches):
     start_index = batch * batch_size
     end_index = min(start_index + batch_size, total_rows)
     process_batch(df, start_index, end_index)
 
     # Save after every two batches
-    if (batch - batches_processed + 1) % 2 == 0:
+    if (batch - batches_processed + 1) % 2 == 0 or batch == num_batches - 1:
         df.to_csv('ACM-new_partial.csv', index=False)
+
