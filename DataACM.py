@@ -2,32 +2,36 @@ import openai
 import pandas as pd
 import math
 
+# Initialize OpenAI client (ensure your API key is set in your environment)
+client = openai.OpenAI()
+
 # Load your dataset
 df = pd.read_csv('/home/kevin/acm-new.csv')
 
-# Add the 'processed' column if it doesn't exist
+# Add the 'processed' and 'summary' columns if they don't exist
 if 'processed' not in df.columns:
     df['processed'] = False
-    df['summary'] = ""  # Add the summary column if not present
+    df['summary'] = ""
 
 # Function to generate summary using OpenAI API
 def generate_summary(citation):
-    prompt = (
+    prompt = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": 
         "Task: Given each research paper with its citation, identify and summarize the paper using 75 words.\n"
         "Chain of Thought: First, find the paper and understand the main focus. Then, look for specific terms "
         "or phrases that are frequently mentioned or hold significant importance. Consider the context of these "
         "terms in relation to the overall research field and the specific topic of the paper.\n"
         f"Citation: {citation}\n"
-        "Summary:"
-    )
+        "Summary:"}
+    ]
 
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[{"role": "system", "content": prompt}]
+        messages=prompt
     )
 
-    # Access the response content correctly
-    return response.choices[0].message.content
+    return response['choices'][0]['message']['content']
 
 # Function to process a batch of citations
 def process_batch(dataframe, start, end):
