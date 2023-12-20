@@ -37,7 +37,7 @@ def generate_summary(citation):
         messages=prompt
     )
 
-    return response['choices'][0]['message']['content']
+    return response.choices[0].message.content
 
 # Function to process a batch of citations
 def process_batch(dataframe, start, end):
