@@ -7,10 +7,10 @@ import os
 
 load_dotenv()  # This loads the .env file
 
-openai.api_key = os.getenv('OPENAI_API_KEY')
+client = OpenAI(
+    api_key = os.getenv('OPENAI_API_KEY')
+)
 
-# Initialize OpenAI client (ensure your API key is set in your environment)
-client = openai.OpenAI()
 
 # Load your dataset
 df = pd.read_csv('/home/kevin/acm-new.csv')
