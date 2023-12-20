@@ -5,9 +5,10 @@ import math
 # Load your dataset
 df = pd.read_csv('/home/kevin/acm-new.csv')
 
-# Check if there's a column to track processed rows, if not create one
+# Add the 'processed' column if it doesn't exist
 if 'processed' not in df.columns:
     df['processed'] = False
+    df['summary'] = ""  # Add the summary column if not present
 
 # Function to generate summary using OpenAI API
 def generate_summary(citation):
@@ -20,21 +21,22 @@ def generate_summary(citation):
         "Summary:"
     )
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "system", "content": prompt}]
     )
 
-    return response['choices'][0]['message']['content']
+    # Access the response content correctly
+    return response.choices[0].message.content
 
 # Function to process a batch of citations
 def process_batch(dataframe, start, end):
     for index in range(start, end):
-        if not dataframe.at[index, 'processed']:  # Check if row is already processed
+        if not dataframe.at[index, 'processed']:
             citation = dataframe.at[index, 'Citation']
             summary = generate_summary(citation)
             dataframe.at[index, 'summary'] = summary
-            dataframe.at[index, 'processed'] = True  # Mark as processed
+            dataframe.at[index, 'processed'] = True
 
 # Determine the number of batches
 batch_size = 150
