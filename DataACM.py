@@ -37,19 +37,17 @@ def process_batch(dataframe, start, end):
             dataframe.at[index, 'processed'] = True  # Mark as processed
 
 # Determine the number of batches
-batch_size = 300
+batch_size = 150
 total_rows = len(df)
 num_batches = math.ceil(total_rows / batch_size)
 
 # Process only two batches at a time
 batches_processed = df['processed'].sum() // batch_size
-for batch in range(batches_processed, min(batches_processed + 5, num_batches)):
+for batch in range(batches_processed, min(batches_processed + 4, num_batches)):
     start_index = batch * batch_size
     end_index = min(start_index + batch_size, total_rows)
     process_batch(df, start_index, end_index)
-    # Save after each batch
-    df.to_csv(f'ACM-new_batch_{batch}.csv', index=False)
 
-# Optionally save the DataFrame after processing two batches
-df.to_csv('ACM-new_partial.csv', index=False)
-
+    # Save after every two batches
+    if (batch - batches_processed + 1) % 2 == 0:
+        df.to_csv('ACM-new_partial.csv', index=False)
