@@ -1,6 +1,12 @@
 import openai
 import pandas as pd
 import math
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # This loads the .env file
+
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Initialize OpenAI client (ensure your API key is set in your environment)
 client = openai.OpenAI()
