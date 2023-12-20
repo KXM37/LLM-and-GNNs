@@ -13,7 +13,7 @@ client = OpenAI(
 
 
 # Load your dataset
-df = pd.read_csv('/home/kevin/acm-new.csv')
+df = pd.read_csv('/home/kevin/ACM-PrePro/ACM-new_partial.csv')
 
 # Add the 'processed' and 'summary' columns if they don't exist
 if 'processed' not in df.columns:
