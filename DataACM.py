@@ -11,7 +11,6 @@ client = OpenAI(
     api_key = os.getenv('OPENAI_API_KEY')
 )
 
-
 # Load your dataset
 df = pd.read_csv('/home/kevin/ACM-PrePro/ACM-new_partial.csv')
 
@@ -19,18 +18,24 @@ df = pd.read_csv('/home/kevin/ACM-PrePro/ACM-new_partial.csv')
 if 'processed' not in df.columns:
     df['processed'] = False
     df['summary'] = ""
+    df['key_terms'] = ""
 
-# Function to generate summary using OpenAI API
-def generate_summary(citation):
+# Function to generate summary and key terms using OpenAI API
+def generate_summary_and_key_terms(citation):
     prompt = [
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": 
-        "Task: Given each research paper with its citation, identify and summarize the paper using 75 words.\n"
-        "Chain of Thought: First, find the paper and understand the main focus. Then, look for specific terms "
-        "or phrases that are frequently mentioned or hold significant importance. Consider the context of these "
-        "terms in relation to the overall research field and the specific topic of the paper.\n"
+        "Task: Find the research paper, and summarize the paper using 75 words in a TF-IDF friendly format. "
+        "Then create a bag of words or a series of distinct semantic terms that encapsulate the main concepts of the paper, "
+        "suitable for TF-IDF analysis. These key terms should be unique and not repeat any words or phrases used in the summary.\n"
+        "Chain of Thought: First, find the research paper using the citation and read and understand the content. "
+        "Then, identify the key themes and ideas in the paper for the summary, ensuring the summary consists of distinct, "
+        "concise phrases. Lastly, select individual words or phrases that represent the core concepts, relevant to the paper, "
+        "research field, and the specific topic of the paper, and list them separately for TF-IDF processing. "
+        "These terms should be different from those used in the summary to provide a diverse range of concepts.\n"
         f"Citation: {citation}\n"
-        "Summary:"}
+        "Summary (Formatted for TF-IDF):\n"
+        "Key Terms (Distinct from Summary, Formatted for TF-IDF):"}
     ]
 
     response = client.chat.completions.create(
@@ -38,15 +43,19 @@ def generate_summary(citation):
         messages=prompt
     )
 
-    return response.choices[0].message.content
+    content = response.choices[0].message.content
+    # Assuming the summary and key terms are separated by a line break in the response
+    summary, key_terms = content.split('\n', 1) 
+    return summary, key_terms
 
 # Function to process a batch of citations
 def process_batch(dataframe, start, end):
     for index in range(start, end):
         if not dataframe.at[index, 'processed']:
             citation = dataframe.at[index, 'Citation']
-            summary = generate_summary(citation)
+            summary, key_terms = generate_summary_and_key_terms(citation)
             dataframe.at[index, 'summary'] = summary
+            dataframe.at[index, 'key_terms'] = key_terms
             dataframe.at[index, 'processed'] = True
 
 # Determine the number of batches
@@ -63,5 +72,4 @@ for batch in range(batches_processed, num_batches):
 
     # Save after every two batches
     if (batch - batches_processed + 1) % 2 == 0 or batch == num_batches - 1:
-        df.to_csv('ACM-new_partial.csv', index=False)
-
+        df.to_csv('3020SumTerm.csv', index=False)
