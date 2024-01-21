@@ -54,8 +54,8 @@ def process_batch(dataframe, start, end):
         if not dataframe.at[index, 'processed']:
             citation = dataframe.at[index, 'Citation']
             summary, key_terms = generate_summary_and_key_terms(citation)
-            dataframe.at[index, 'summary'] = summary
-            dataframe.at[index, 'key_terms'] = key_terms
+            dataframe.at[index, 'Summary'] = summary
+            dataframe.at[index, 'KeyTerms'] = key_terms
             dataframe.at[index, 'processed'] = True
 
 # Determine the number of batches
