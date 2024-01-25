@@ -15,7 +15,7 @@ from scipy.sparse import csr_matrix
 from scipy.sparse import save_npz
 
 # Read the CSV file
-df = pd.read_csv('3020acm.csv')
+df = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020acm.csv')
 
 df = df[['Summary','Authors', 'KeyTerms']]
 
@@ -747,7 +747,7 @@ series.to_csv('termsIndex.csv', header=True, index_label='Index')
 
 # Example: Placeholder DataFrame and terms array
 
-terms = pd.read_csv('/home/kevin/ACM-PrePro/termsIndex.csv')
+terms = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/termsIndex.csv')
 # Number of papers and terms
 num_papers = len(Sumt)
 num_terms = len(terms)
@@ -769,4 +769,4 @@ for index, row in df.iterrows():
 TvsP = TvsP_matrix.tocsr()
 
 # Save the CSR matrix to a file
-save_npz('/home/kevin/ACM-PrePro/TvP.npz', TvsP)
+save_npz('/home/kevin/ACM-PrePro/LLM-and-GNNs/TvP.npz', TvsP)
