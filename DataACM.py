@@ -12,7 +12,7 @@ client = OpenAI(
 )
 
 # Load your dataset
-df = pd.read_csv('/home/kevin/ACM-PrePro/3020acm.csv')
+df = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020acm.csv')
 
 # Add the 'processed' and 'summary' columns if they don't exist
 if 'processed' not in df.columns:
