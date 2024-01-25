@@ -52,7 +52,7 @@ def generate_summary_and_key_terms(citation):
 def process_batch(dataframe, start, end):
     for index in range(start, end):
         if not dataframe.at[index, 'processed']:
-            citation = dataframe.at[index, 'Citation']
+            citation = str(dataframe.iloc[index])
             summary, key_terms = generate_summary_and_key_terms(citation)
             dataframe.at[index, 'Summary'] = summary
             dataframe.at[index, 'KeyTerms'] = key_terms
