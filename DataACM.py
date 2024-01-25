@@ -45,7 +45,7 @@ def generate_summary_and_key_terms(citation):
 
     content = response.choices[0].message.content
     # Assuming the summary and key terms are separated by a line break in the response
-    summary, key_terms = response_content.split('\n\n', 1) 
+    summary, key_terms = content.split('\n\n', 1) 
     return summary, key_terms
 
 # Function to process a batch of citations
