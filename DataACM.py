@@ -57,6 +57,7 @@ def process_batch(dataframe, start, end):
             dataframe.at[index, 'Summary'] = summary
             dataframe.at[index, 'KeyTerms'] = key_terms
             dataframe.at[index, 'processed'] = True
+        print(f"Processed row index: {index}")
 
 # Determine the number of batches
 batch_size = 150
@@ -73,3 +74,4 @@ for batch in range(batches_processed, num_batches):
     # Save after every two batches
     if (batch - batches_processed + 1) % 2 == 0 or batch == num_batches - 1:
         df.to_csv('3020SumTerm.csv', index=False)
+    print(f"Batch {batch}, Start Index: {start_index}")
