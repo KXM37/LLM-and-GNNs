@@ -42,6 +42,7 @@ def generate_summary_and_key_terms(citation):
         model="gpt-3.5-turbo",
         messages=prompt
     )
+    content = response.choices[0].message.content
     # Check if 'content' contains the expected delimiter '\n\n'
     if '\n\n' in content:
         # Split 'content' into 'summary' and 'key_terms'
