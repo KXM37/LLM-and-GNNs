@@ -13,7 +13,7 @@ from scipy.sparse import csr_matrix
 from scipy.sparse import load_npz
 
 # Load the matrix
-TvsP = load_npz('/home/kevin/ACM-PrePro/LLM-and-GNNs/TvsP.npz')
+TvsP = load_npz('/home/kevin/ACM-PrePro/LLM-and-GNNs/TvP.npz')
 mat_file = io.loadmat('ACM.mat')
 
 paper_conf = mat_file['PvsC'].nonzero()[1]
