@@ -16,6 +16,7 @@ from scipy.sparse import save_npz
 
 # Read the CSV file
 olddf = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020SumTerm.csv')
+df = pd.DataFrame()
 
 df['Summary'] = olddf['Summary'].astype(str)
 df['Authors'] = olddf['Authors'].astype(str)
