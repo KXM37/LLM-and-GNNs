@@ -15,9 +15,12 @@ from scipy.sparse import csr_matrix
 from scipy.sparse import save_npz
 
 # Read the CSV file
-df = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020SumTerm.csv')
+olddf = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020SumTerm.csv')
 
-df = df[['Summary','Authors', 'KeyTerms']]
+df['Summary'] = olddf['Summary'].astype(str)
+df['Authors'] = olddf['Authors'].astype(str)
+df['KeyTerms'] = olddf['KeyTerms'].astype(str)
+
 
 # Join 'Citation', 'Paper', and 'Summary' columns into a single column
 df.loc[:, 'combined'] = df.apply(lambda row: ' '.join(row[col] for col in ['Summary','Authors', 'KeyTerms']), axis=1)
@@ -33,6 +36,9 @@ Sumt = df.copy()
 stopwords_array = np.array([
         [np.array(['a'])],
         [np.array(['able'])],
+        [np.array(['summary'])],
+        [np.array(['terms'])],
+        [np.array(['key'])],
         [np.array(['about'])],
         [np.array(['above'])],
         [np.array(['abst'])],
