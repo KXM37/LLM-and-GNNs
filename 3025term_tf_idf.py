@@ -739,28 +739,22 @@ top_words = sorted_words[:1900]
 print(top_words[:9])
 
 # add the top words to new term array
-terms = []
+top1900 = []
 for word, score in top_words:
-  terms.append(word)
+  top1900.append(word)
 
 # Creating a Series with indices
-series = pd.Series(terms, name='terms')
+series = pd.Series(top1900, name='terms')
 
 # Save Series to CSV
 series.to_csv('termsIndex.csv', header=True, index_label='Index')
 print("Top words extracted and saved.")
 
-# Creating a Series with indices
-series = pd.Series(terms, name='terms')
-
-# Save Series to CSV
-series.to_csv('termsIndex.csv', header=True, index_label='Index')
-
 # Load the terms DataFrame (if not already loaded)
-terms = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/termsIndex.csv')
+termsdf = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/termsIndex.csv')
 
 # Create the terms dictionary for quick lookup
-term_dict = {term: idx for idx, term in terms['terms'].iteritems()}
+term_dict = {term: idx for idx, term in termsdf['terms'].items()}
 
 # Number of papers and terms
 num_papers = len(Sumt)
