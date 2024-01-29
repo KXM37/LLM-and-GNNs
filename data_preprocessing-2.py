@@ -133,7 +133,7 @@ print("node feats shape",node_faeture.shape)
 
 """# Label"""
 
-print("paper target shape",paper_target.shape
+print("paper target shape",paper_target.shape)
 
 # Train, Valid
 train_valid_DB = list(np.random.choice(np.where(paper_target==0)[0],300, replace=False))
