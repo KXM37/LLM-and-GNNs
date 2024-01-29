@@ -775,6 +775,8 @@ for index, row in df.iterrows():
         term_index = term_dict.get(term)
         if term_index is not None:
             TvsP_matrix[term_index, index] = 1.0
+
+TvsP = TvsP_matrix.tocsr()
 print("Matrix population completed.")
 # Save the CSR matrix to a file
 save_npz('/home/kevin/ACM-PrePro/LLM-and-GNNs/TvP.npz', TvsP)
