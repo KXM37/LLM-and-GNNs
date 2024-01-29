@@ -16,11 +16,11 @@ from scipy.sparse import save_npz
 
 # Read the CSV file
 olddf = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020SumTerm.csv')
-df = pd.DataFrame()
+df = olddf.copy() 
 
-df['Summary'] = olddf['Summary'].astype(str)
-df['Authors'] = olddf['Authors'].astype(str)
-df['KeyTerms'] = olddf['KeyTerms'].astype(str)
+df['Summary'] = df['Summary'].astype(str)
+df['Authors'] = df['Authors'].astype(str)
+df['KeyTerms'] = df['KeyTerms'].astype(str)
 
 
 # Join 'Citation', 'Paper', and 'Summary' columns into a single column
