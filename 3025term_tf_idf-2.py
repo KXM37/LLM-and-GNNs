@@ -15,7 +15,7 @@ from scipy.sparse import csr_matrix
 from scipy.sparse import save_npz
 
 # Read the CSV file
-df = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020acm.csv')
+df = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020SumTerm.csv')
 
 df = df[['Summary','Authors', 'KeyTerms']]
 
