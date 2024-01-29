@@ -17,11 +17,12 @@ from scipy.sparse import save_npz
 # Read the CSV file
 olddf = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020SumTerm.csv')
 df = olddf.copy() 
+print("DataFrame loaded successfully.")
 
 df['Summary'] = df['Summary'].astype(str)
 df['Authors'] = df['Authors'].astype(str)
 df['KeyTerms'] = df['KeyTerms'].astype(str)
-
+print("Columns converted to strings and combined.")
 
 # Join 'Citation', 'Paper', and 'Summary' columns into a single column
 df.loc[:, 'combined'] = df.apply(lambda row: ' '.join(row[col] for col in ['Summary','Authors', 'KeyTerms']), axis=1)
@@ -719,6 +720,7 @@ vectorizer = TfidfVectorizer(stop_words=stopWords)
 
 # Assuming 'df' is your DataFrame and 'combined' is the column with text data
 tfidf_matrix = vectorizer.fit_transform(df['combined'])
+print("TF-IDF vectorization completed.")
 
 # Sum TF-IDF scores for each word across all documents
 sum_scores = tfidf_matrix.sum(axis=0)
@@ -734,6 +736,7 @@ sorted_words = sorted(word_scores.items(), key=lambda x: x[1], reverse=True)
 
 # Select the top 1900 words
 top_words = sorted_words[:1900]
+print(top_words[:9])
 
 # add the top words to new term array
 terms = []
@@ -745,6 +748,7 @@ series = pd.Series(terms, name='terms')
 
 # Save Series to CSV
 series.to_csv('termsIndex.csv', header=True, index_label='Index')
+print("Top words extracted and saved.")
 
 # Creating a Series with indices
 series = pd.Series(terms, name='terms')
@@ -752,9 +756,12 @@ series = pd.Series(terms, name='terms')
 # Save Series to CSV
 series.to_csv('termsIndex.csv', header=True, index_label='Index')
 
-# Example: Placeholder DataFrame and terms array
-
+# Load the terms DataFrame (if not already loaded)
 terms = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/termsIndex.csv')
+
+# Create the terms dictionary for quick lookup
+term_dict = {term: idx for idx, term in terms['term'].iteritems()}
+
 # Number of papers and terms
 num_papers = len(Sumt)
 num_terms = len(terms)
@@ -764,16 +771,16 @@ TvsP_matrix = lil_matrix((num_terms, num_papers), dtype=float)
 
 # Populate the matrix
 for index, row in df.iterrows():
-    # Assuming each row of df contains a list of terms for the paper
-    paper_terms = row['terms']  # Replace 'terms' with the actual column name
+    if index % 100 == 0:  # Print progress for every 100th paper
+        print(f"Processing paper {index}/{num_papers}")
+    # Split the 'combined' column's string into individual terms
+    paper_terms = row['combined'].split()
 
     for term in paper_terms:
-        if term in terms:
-            term_index = terms.index(term)
+        term_index = term_dict.get(term)
+        if term_index is not None:
             TvsP_matrix[term_index, index] = 1.0
-
-# Convert to a more efficient format like CSR if needed
-TvsP = TvsP_matrix.tocsr()
-
+print("Matrix population completed.")
 # Save the CSR matrix to a file
 save_npz('/home/kevin/ACM-PrePro/LLM-and-GNNs/TvP.npz', TvsP)
+print("Matrix saved to file.")
