@@ -14,7 +14,7 @@ from scipy.sparse import load_npz
 
 # Load the matrix
 TvsP = load_npz('/home/kevin/ACM-PrePro/LLM-and-GNNs/TvP.npz')
-mat_file = io.loadmat('ACM.mat')
+mat_file = io.loadmat('/home/kevin/ACM-PrePro/LLM-and-GNNs/ACM.mat')
 
 paper_conf = mat_file['PvsC'].nonzero()[1]
 
