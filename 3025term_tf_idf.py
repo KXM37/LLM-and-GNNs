@@ -760,7 +760,7 @@ series.to_csv('termsIndex.csv', header=True, index_label='Index')
 terms = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/termsIndex.csv')
 
 # Create the terms dictionary for quick lookup
-term_dict = {term: idx for idx, term in terms['term'].iteritems()}
+term_dict = {term: idx for idx, term in terms['terms'].iteritems()}
 
 # Number of papers and terms
 num_papers = len(Sumt)
