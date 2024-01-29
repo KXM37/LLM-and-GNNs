@@ -758,7 +758,7 @@ term_dict = {term: idx for idx, term in termsdf['terms'].items()}
 
 # Number of papers and terms
 num_papers = len(Sumt)
-num_terms = len(terms)
+num_terms = len(termsdf)
 
 # Create an empty LIL sparse matrix
 TvsP_matrix = lil_matrix((num_terms, num_papers), dtype=float)
