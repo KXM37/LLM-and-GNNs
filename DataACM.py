@@ -44,7 +44,7 @@ def generate_summary_and_key_terms(citation):
     content = response.choices[0].message.content
 
     # Check if 'content' contains the expected delimiter '\n\n'
-    if '\n\n' in content:
+   """ if '\n\n' in content:
         # Split 'content' into 'summary' and 'key_terms'
         summary, key_terms = content.split('\n\n', 1)
     else:
@@ -52,7 +52,7 @@ def generate_summary_and_key_terms(citation):
         summary = content  # Use the entire content as the summary
         key_terms = ""  # Set key_terms to an empty string or some default value
 
-    return summary, key_terms
+    return summary, key_terms"""
 
 # Function to process a batch of citations
 def process_batch(dataframe, start, end):
