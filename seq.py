@@ -8,36 +8,9 @@ Original file is located at
 """
 
 import subprocess
-"""import requests
 
-# Function to download a file from a URL
-def download_file(url, filename):
-    response = requests.get(url)
-    if response.status_code == 200:
-        with open(filename, 'wb') as file:
-            file.write(response.content)
-        return True
-    else:
-        print(f"Failed to download {filename}")
-        return False
 
-# URLs of the raw Python files on GitHub
-url1 = 'https://raw.githubusercontent.com/KXM37/LLM-and-GNNs/main/paperidx.py'
-url2 = 'https://raw.githubusercontent.com/KXM37/LLM-and-GNNs/main/DataACM.py'
-url3 = 'https://raw.githubusercontent.com/KXM37/LLM-and-GNNs/main/3025term_tf_idf.py'
-
-# Filenames to save the downloaded scripts
-file1 = 'paperidx.py'
-file2 = 'DataACM.py'
-file3 = '3025term_tf_idf.py'
-
-# Download the files
-success1 = download_file(url1, file1)
-success2 = download_file(url2, file2) if success1 else False
-success3 = download_file(url3, file3) if success2 else False"""
-
-# Filenames to save the downloaded scripts
-file1 = 'paperidx.py'
+# Filename
 file2 = 'DataACM.py'
 file3 = '3025term_tf_idf.py'
 
@@ -45,18 +18,14 @@ file3 = '3025term_tf_idf.py'
 def run_script(file_path):
     try:
         result = subprocess.run(['python3', file_path], check=True)
-        return result.returncode == 0  #True if successful
+        return result.returncode == 0  #True if the script was successful
     except subprocess.CalledProcessError:
-        return False  #False if failed
+        return False  #False if the script failed
 
-# Run the scripts if they were successfully downloaded
-if success1 and run_script(file1):
-    if success2 and run_script(file2):
-        if success3:
-            run_script(file3)
-        else:
-            print(f"Failed to download: {file3}")
+
+if run_script(file2):
+    if run_script(file3):
     else:
-        print(f"Execution failed at: {file2}")
+        print(f"Execution failed at: {file3}")
 else:
-    print(f"Execution failed at: {file1}")
+    print(f"Execution failed at: {file2}")
