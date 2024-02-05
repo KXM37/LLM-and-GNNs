@@ -12,7 +12,7 @@ client = OpenAI(
 )
 
 # Load your dataset
-df = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020acm.csv')
+df = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3025acm.csv')
 
 # Add the 'processed' and 'summary' columns if they don't exist
 if 'processed' not in df.columns:
@@ -31,8 +31,7 @@ def generate_summary_and_key_terms(citation):
         "Chain of Thought: First, find the research paper using the citation and read and understand the content. "
         "Then, identify the key themes and ideas in the paper for the summary, ensuring the summary consists of distinct, "
         "concise phrases. Lastly, select individual words or phrases that represent the core concepts, relevant to the paper, "
-        "research field, and the specific topic of the paper, and list them separately for TF-IDF processing. "
-        "These terms should be different from those used in the summary to provide a diverse range of concepts.\n"
+        "research field, and the specific topic of the paper, and list them separately for TF-IDF processing.\n "
         f"Citation: {citation}\n"
         "Summary (Formatted for TF-IDF):\n"
         "Key Terms (Distinct from Summary, Formatted for TF-IDF):"}
@@ -80,5 +79,5 @@ for batch in range(batches_processed, num_batches):
 
     # Save after every two batches
     if (batch - batches_processed + 1) % 2 == 0 or batch == num_batches - 1:
-        df.to_csv('3020SumTerm.csv', index=False)
+        df.to_csv('3025SumTerm.csv', index=False)
     print(f"Batch {batch}, Start Index: {start_index}")
