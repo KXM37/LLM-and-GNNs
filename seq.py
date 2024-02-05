@@ -8,7 +8,7 @@ Original file is located at
 """
 
 import subprocess
-import requests
+"""import requests
 
 # Function to download a file from a URL
 def download_file(url, filename):
@@ -34,7 +34,12 @@ file3 = '3025term_tf_idf.py'
 # Download the files
 success1 = download_file(url1, file1)
 success2 = download_file(url2, file2) if success1 else False
-success3 = download_file(url3, file3) if success2 else False
+success3 = download_file(url3, file3) if success2 else False"""
+
+# Filenames to save the downloaded scripts
+file1 = 'paperidx.py'
+file2 = 'DataACM.py'
+file3 = '3025term_tf_idf.py'
 
 # Function to run a Python file and check if it was successful
 def run_script(file_path):
