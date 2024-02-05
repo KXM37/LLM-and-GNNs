@@ -33,8 +33,8 @@ def generate_summary_and_key_terms(citation):
         "concise phrases. Lastly, select individual words or phrases that represent the core concepts, relevant to the paper, "
         "research field, and the specific topic of the paper, and list them separately for TF-IDF processing.\n "
         f"Citation: {citation}\n"
-        "Summary (Formatted for TF-IDF):\n"
-        "Key Terms (Distinct from Summary, Formatted for TF-IDF):"}
+        #"Summary (Formatted for TF-IDF):\n"
+        "75 Key Terms (Formatted for TF-IDF):"}
     ]
 
     response = client.chat.completions.create(
@@ -60,7 +60,7 @@ def process_batch(dataframe, start, end):
         if not dataframe.at[index, 'processed']:
             citation = str(dataframe.iloc[index])
             summary, key_terms = generate_summary_and_key_terms(citation)
-            dataframe.at[index, 'Summary'] = summary
+            #dataframe.at[index, 'Summary'] = summary
             dataframe.at[index, 'KeyTerms'] = key_terms
             dataframe.at[index, 'processed'] = True
         print(f"Processed row index: {index}")
