@@ -15,7 +15,7 @@ from scipy.sparse import csr_matrix
 from scipy.sparse import save_npz
 
 # Read the CSV file
-olddf = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3020SumTerm.csv')
+olddf = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3025SumTerm.csv')
 df = olddf.copy() 
 print("DataFrame loaded successfully.")
 
