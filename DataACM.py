@@ -25,7 +25,7 @@ def generate_summary_and_key_terms(citation):
     prompt = [
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": 
-        "Task: Find the research paper, and summarize the paper using 75 words in a TF-IDF friendly format. "
+        "Task: Find the research paper, and summarize the paper using 75 terms in a TF-IDF friendly format. "
         "Then create a bag of words or a series of distinct semantic terms that encapsulate the main concepts of the paper, "
         "suitable for TF-IDF analysis. These key terms should be unique and not repeat any words or phrases used in the summary.\n"
         "Chain of Thought: First, find the research paper using the citation and read and understand the content. "
@@ -36,11 +36,12 @@ def generate_summary_and_key_terms(citation):
         "75 Key Terms (Formatted for TF-IDF):"}
     ]
 
+
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=prompt
     )
-    content = response.choices[0].message.content
+    key_terms = response.choices[0].message.content
 
     # Check if 'content' contains the expected delimiter '\n\n
 
