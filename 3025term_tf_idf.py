@@ -19,13 +19,13 @@ olddf = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3025SumTerm.csv')
 df = olddf.copy() 
 print("DataFrame loaded successfully.")
 
-df['Summary'] = df['Summary'].astype(str)
+#df['Summary'] = df['Summary'].astype(str)
 df['Authors'] = df['Authors'].astype(str)
 df['KeyTerms'] = df['KeyTerms'].astype(str)
 print("Columns converted to strings and combined.")
 
-# Join 'Citation', 'Paper', and 'Summary' columns into a single column
-df.loc[:, 'combined'] = df.apply(lambda row: ' '.join(row[col] for col in ['Summary','Authors', 'KeyTerms']), axis=1)
+# Join 'Citation', 'Paper', and 'Summary' columns into a single column ['Summary','Authors', 'KeyTerms']
+df.loc[:, 'combined'] = df.apply(lambda row: ' '.join(row[col] for col in ['Authors', 'KeyTerms']), axis=1)
 
 # Assuming 'df' is a slice from a larger DataFrame
 df.loc[:, 'combined'] = df['combined'].apply(lambda x: str(x).lower())
