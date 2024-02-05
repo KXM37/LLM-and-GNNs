@@ -50,9 +50,9 @@ def generate_summary_and_key_terms(citation):
     else:
         # Handle the case where 'content' does not have the expected format
         summary = content  # Use the entire content as the summary
-        key_terms = ""  # Set key_terms to an empty string or some default value
+        key_terms = ""  # Set key_terms to an empty string or some default value"""
 
-    return summary, key_terms"""
+    return key_terms
 
 # Function to process a batch of citations
 def process_batch(dataframe, start, end):
