@@ -17,8 +17,8 @@ df = pd.read_csv('/home/kevin/ACM-PrePro/LLM-and-GNNs/3025acm.csv')
 # Add the 'processed' and 'summary' columns if they don't exist
 if 'processed' not in df.columns:
     df['processed'] = False
-    df['summary'] = ""
-    df['key_terms'] = ""
+    #df['summary'] = ""
+    df['KeyTerms'] = ""
 
 # Function to generate summary and key terms using OpenAI API
 def generate_summary_and_key_terms(citation):
@@ -33,7 +33,6 @@ def generate_summary_and_key_terms(citation):
         "concise phrases. Lastly, select individual words or phrases that represent the core concepts, relevant to the paper, "
         "research field, and the specific topic of the paper, and list them separately for TF-IDF processing.\n "
         f"Citation: {citation}\n"
-        #"Summary (Formatted for TF-IDF):\n"
         "75 Key Terms (Formatted for TF-IDF):"}
     ]
 
@@ -43,14 +42,7 @@ def generate_summary_and_key_terms(citation):
     )
     content = response.choices[0].message.content
 
-    # Check if 'content' contains the expected delimiter '\n\n'
-   """ if '\n\n' in content:
-        # Split 'content' into 'summary' and 'key_terms'
-        summary, key_terms = content.split('\n\n', 1)
-    else:
-        # Handle the case where 'content' does not have the expected format
-        summary = content  # Use the entire content as the summary
-        key_terms = ""  # Set key_terms to an empty string or some default value"""
+    # Check if 'content' contains the expected delimiter '\n\n
 
     return key_terms
 
