@@ -20,7 +20,7 @@ df = olddf.copy()
 print("DataFrame loaded successfully.")
 
 #df['Summary'] = df['Summary'].astype(str)
-df['Authors'] = df['Authors'].astype(str)
+df['Author'] = df['Author'].astype(str)
 df['KeyTerms'] = df['KeyTerms'].astype(str)
 print("Columns converted to strings and combined.")
 
@@ -31,7 +31,7 @@ df.loc[:, 'combined'] = df.apply(lambda row: ' '.join(row[col] for col in ['Auth
 df.loc[:, 'combined'] = df['combined'].apply(lambda x: str(x).lower())
 
 # Ensure each column is a string and convert to lowercase
-df = df.applymap(lambda x: str(x).lower())
+df = df.map(lambda x: str(x).lower())
 Sumt = df.copy()
 
 # Provided stop words array
