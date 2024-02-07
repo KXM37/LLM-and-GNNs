@@ -41,11 +41,15 @@ def generate_summary_and_key_terms(citation):
         model="gpt-3.5-turbo",
         messages=prompt
     )
-    key_terms = response.choices[0].message.content
+    key_terms_GPT = response.choices[0].message.content
 
-    # Check if 'content' contains the expected delimiter '\n\n
+    key_terms = transform_terms(key_terms_GPT)
 
     return key_terms
+
+def transform_terms(term_str):
+    return [term.split('. ', 1)[-1] for term in term_str.split('\n') if term]
+
 
 # Function to process a batch of citations
 def process_batch(dataframe, start, end):
