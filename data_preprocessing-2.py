@@ -109,7 +109,6 @@ for term in terms:
     re_terms.append(term_dic[term])
 re_terms = np.array(re_terms)
 
-TvsP.transpose()
 
 # tmp
 tmp_num_node = node_num + len(term_dic)
@@ -119,7 +118,7 @@ A_pa_tmp = csr_matrix((data, (papers, re_authors)), shape=(tmp_num_node,tmp_num_
 papers = mat_file['PvsL'][paper_idx].nonzero()[0]
 data = np.ones_like(papers)
 A_ps_tmp = csr_matrix((data, (papers, re_subjects)), shape=(tmp_num_node,tmp_num_node))
-papers = TvsP[paper_idx].nonzero()[0]
+papers = TvsPTvsP.transpose()[paper_idx].nonzero()[0]
 data = np.ones_like(papers)
 A_pt_tmp = csr_matrix((data, (papers, re_terms)), shape=(tmp_num_node,tmp_num_node))
 
